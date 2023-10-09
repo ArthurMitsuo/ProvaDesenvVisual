@@ -1,5 +1,6 @@
 ﻿namespace API;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using API.Data;
 
 [ApiController]
@@ -17,8 +18,33 @@ public class FolhaController : ControllerBase
     public IActionResult Listar(){
         try
         {
-            List<Folha>? folha = _context?.Folhas?.ToList();
-            return Ok(folha);
+            List<Folha>? folhas = _context?.Folhas?.Include(f => f.Funcionario).ToList();
+                
+            if(folhas != null){
+                return Ok(folhas);
+            } else{
+                return NotFound("404 - Nenhuma folha encontrada");
+            }   
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    //Lista folhas por /{cpf}/{mes}/{ano}
+    [HttpGet]
+    [Route("listar/{cpf}/{mes}/{ano}")]
+    public IActionResult ListarEspecifico([FromRoute] string cpf, [FromRoute] int mes, [FromRoute] int ano){
+        try
+        {
+            Folha? folha = _context?.Folhas?.Include(f => f.Funcionario).FirstOrDefault(x => x.Funcionario.Cpf == cpf && x.Ano == ano && x.Mes == mes);
+
+            if(folha != null){
+                return Ok(folha);
+            }else{
+                return NotFound("404");
+            }
         }
         catch (Exception e)
         {
@@ -119,7 +145,7 @@ public class FolhaController : ControllerBase
         if(SalarioBruto < 5645.81){
             inssCalculado = SalarioBruto * inss;
         }else{
-            inssCalculado = SalarioBruto - inss;
+            inssCalculado = inss;
         }
 
         listaValores.Add(inssCalculado);
@@ -129,7 +155,7 @@ public class FolhaController : ControllerBase
 
         listaValores.Add(fgtsCalculado);
         //Calcula o Valor do Salário Líquido
-        double? salarioLiquido = SalarioBruto -irrfCalculado - inssCalculado;
+        double? salarioLiquido = SalarioBruto - irrfCalculado - inssCalculado;
         listaValores.Add(salarioLiquido);
 
         return listaValores;
