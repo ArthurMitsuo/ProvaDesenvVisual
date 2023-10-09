@@ -1,4 +1,4 @@
-@base_url = https://localhost:PORTA/api
+@base_url = https://localhost:7119/api
 
 # FUNCIONÁRIO ######################################
 

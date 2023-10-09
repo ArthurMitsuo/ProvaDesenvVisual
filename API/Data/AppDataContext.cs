@@ -10,8 +10,8 @@ public class AppDataContext : DbContext
     }
 
     //Classes que vão se tornar tabelas no banco de dados
-    //public DbSet<Cargo> Cargos {get; set;}
-    //public DbSet<TarefaAtividade> TarefasAtividade {get; set;}
+    public DbSet<Folha> Folhas {get; set;}
+    public DbSet<Funcionario> Funcionario {get; set;}
 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
