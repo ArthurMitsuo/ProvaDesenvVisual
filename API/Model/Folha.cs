@@ -1,4 +1,6 @@
 ﻿namespace API;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 public class Folha
 {
     public Folha() => CriadoEm = DateTime.Now;
@@ -14,6 +16,7 @@ public class Folha
     public double? ImpostoFgts { get; set;}
     public double? SalarioLiquido { get; set;}
     public Funcionario? Funcionario {get;set;}
+    [ForeignKey("FuncionarioId")]
     public int? FuncionarioId {get;set;}
     public DateTime CriadoEm { get; set; }
 }
