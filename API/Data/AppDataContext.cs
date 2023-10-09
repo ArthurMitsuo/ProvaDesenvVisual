@@ -16,6 +16,10 @@ public class AppDataContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Consultar as folhas com carregamento antecipado do funcionário
+        modelBuilder.Entity<Folha>()
+            .HasOne(f => f.Funcionario);
+
         base.OnModelCreating(modelBuilder);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class PrimeiraMigracaoTesteInicial : Migration
+    public partial class SegundaMigracaoTesteFolha : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
