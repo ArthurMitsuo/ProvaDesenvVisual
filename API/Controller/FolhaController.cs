@@ -34,11 +34,11 @@ public class FolhaController : ControllerBase
 
     //Lista folhas por /{cpf}/{mes}/{ano}
     [HttpGet]
-    [Route("listar/{cpf}/{mes}/{ano}")]
+    [Route("buscar/{cpf}/{mes}/{ano}")]
     public IActionResult ListarEspecifico([FromRoute] string cpf, [FromRoute] int mes, [FromRoute] int ano){
         try
         {
-            Folha? folha = _context?.Folhas?.Include(f => f.Funcionario).FirstOrDefault(x => x.Funcionario.Cpf == cpf && x.Ano == ano && x.Mes == mes);
+            Folha? folha = _context.Folhas.Include(f => f.Funcionario).FirstOrDefault(x => x.Ano == ano && x.Mes == mes && x.Funcionario.Cpf == cpf );
 
             if(folha != null){
                 return Ok(folha);

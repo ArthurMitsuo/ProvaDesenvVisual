@@ -17,6 +17,6 @@ public class Folha
     public double? SalarioLiquido { get; set;}
     public Funcionario? Funcionario {get;set;}
     [ForeignKey("FuncionarioId")]
-    public int? FuncionarioId {get;set;}
+    public int FuncionarioId {get;set;}
     public DateTime CriadoEm { get; set; }
 }
